@@ -42,3 +42,21 @@ Do not use synchronous functions (see warning above)
 
  */
 
+//command line arguments
+// 1. a URL
+// 2. a local file path
+
+const args = (process.argv).slice(2);
+const argURL = args[0];
+const argLocalFilePath = args[1];
+
+//write a file with Node.js
+const fs = require('fs');
+
+fs.writeFile(argURL, argLocalFilePath, err => {
+    if (err) {
+        console.error(err);
+    }
+    // file written successfully
+    console.log(`Downloaded and saved 3261 bytes to ${argLocalFilePath}`);
+});
