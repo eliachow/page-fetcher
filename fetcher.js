@@ -3,8 +3,8 @@
  * M2/W5/HTTP & NodeJS/Page Downloader:
  * https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m02w5/activities/418?journey_step=34
  * /lighthouse/page-fetcher/fetcher.js
- * 
- * ---- CHALLENGE ---- 
+ *
+ * ---- CHALLENGE ----
  * Implement a node app called fetcher.js.
 
 It should take two command line arguments:
@@ -42,6 +42,8 @@ Do not use synchronous functions (see warning above)
 
  */
 
+
+
 //command line arguments
 // 1. a URL
 // 2. a local file path
@@ -53,10 +55,24 @@ const argLocalFilePath = args[1];
 //write a file with Node.js
 const fs = require('fs');
 
-fs.writeFile(argURL, argLocalFilePath, err => {
+// http request
+const request = require('request');
+request(argURL, function(error, response, body) {
+  if (error) {
+    console.error('error:', error); // Print the error if one occurred
+    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  }
+
+  fs.writeFile(argLocalFilePath, body, err => {
     if (err) {
-        console.error(err);
+      console.error(err);
     }
+
     // file written successfully
     console.log(`Downloaded and saved 3261 bytes to ${argLocalFilePath}`);
+  });
 });
+
+
+
+
