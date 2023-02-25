@@ -67,9 +67,12 @@ request(argURL, function(error, response, body) {
     if (err) {
       console.error(err);
     }
-
     // file written successfully
-    console.log(`Downloaded and saved 3261 bytes to ${argLocalFilePath}`);
+    //find bytes
+    
+    const stats = fs.statSync('./index.html');
+    const bytes = stats.size;
+    console.log(`Downloaded and saved ${bytes} bytes to ${argLocalFilePath}`);
   });
 });
 
